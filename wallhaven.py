@@ -8,7 +8,6 @@ import argparse
 
 f = open('./config.json', 'r')
 settings = json.loads(f.read())
-api_key = settings['api_key']
 temp_dir = settings['temp_dir']
 save_dir = settings['save_dir']
 payload = settings['payload']
