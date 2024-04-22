@@ -1,0 +1,12 @@
+{
+    "api_key": "",
+    "temp_dir": "/tmp/",
+    "save_dir": "/home/jstn/img/walls/",
+    "payload": {
+        "categories": "111",
+        "sorting": "random",
+        "atleast": "2560x1440",
+        "ratios": "landscape",
+        "purity": "110"
+    }
+}

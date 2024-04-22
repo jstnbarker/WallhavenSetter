@@ -4,36 +4,35 @@ import requests
 import os
 import json
 import sys
+import argparse
 
-last_pape_tracker = "/tmp/last_pape_tracker"
-directory = "/tmp/wallpaper.from.wallhaven"
+f = open('./config.json', 'r')
+settings = json.load(f.read())
+api_key = settings['api_key']
+temp_dir = settings['temp_dir']
+save_dir = settings['save_dir']
+payload = settings['payload']
 
 
 def incrementIndex():
     inc = getCurrentIndex()+1
-    f = open(last_pape_tracker, "w")
+    f = open(temp_dir+"/index", "w")
     f.write(str(inc))
 
 
 def getCurrentIndex():
-    f = open(last_pape_tracker)
+    f = open(temp_dir+"/index")
     current = int(f.readline())
     f.close()
     if (current >= 24):
         current = 0
         getPapeList()
-        f = open(last_pape_tracker, 'w')
+        f = open(temp_dir+"/index", 'w')
         f.write("0")
     return current
 
 
 def getPapeList():
-    payload = {'categories': '010',
-               'atleast': '2560x1440',
-               'sorting': 'random',
-               'ratios': 'landscape',
-               'purity': '110',
-               }
     response = requests.get('https://wallhaven.cc/api/v1/search',
                             params=payload)
     dictionary = response.json()
@@ -61,13 +60,12 @@ def setWallpaper(link: str):
 
 
 def main():
-    saveDir = "/home/jstn/img/walls/"
     index = getCurrentIndex()
     if (len(sys.argv) != 1):
         if (sys.argv[1] == "s"):
             filename = os.path.split(getLink(index-1))
-            dlPape(getLink(index-1), saveDir+filename[1])
-            print("Pape saved to " + saveDir+filename[1])
+            dlPape(getLink(index-1), save_dir+filename[1])
+            print("Pape saved to " + save_dir+filename[1])
     else:
         path = getLink(index)
         setWallpaper(path)
