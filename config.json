@@ -3,10 +3,11 @@
     "temp_dir": "/tmp/",
     "save_dir": "/home/jstn/img/walls/",
     "payload": {
-        "categories": "111",
+        "categories": "010",
         "sorting": "random",
         "atleast": "2560x1440",
         "ratios": "landscape",
         "purity": "110"
-    }
+    },
+    "setter": "feh --bg-fill"
 }

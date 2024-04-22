@@ -12,6 +12,7 @@ api_key = settings['api_key']
 temp_dir = settings['temp_dir']
 save_dir = settings['save_dir']
 payload = settings['payload']
+setter = settings['setter']
 
 
 def incrementIndex():
@@ -58,8 +59,8 @@ def dlPape(link: str, filename: str):
 
 
 def setWallpaper(link: str):
-    dlPape(link, "/tmp/lastpape")
-    os.system("xwallpaper --zoom " + "/tmp/lastpape")
+    dlPape(link, temp_dir + "lastpape")
+    os.system(setter + " " + temp_dir + "lastpape")
     incrementIndex()
 
 
