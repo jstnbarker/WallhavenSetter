@@ -7,7 +7,7 @@ import sys
 import argparse
 
 f = open('./config.json', 'r')
-settings = json.load(f.read())
+settings = json.loads(f.read())
 api_key = settings['api_key']
 temp_dir = settings['temp_dir']
 save_dir = settings['save_dir']
@@ -21,12 +21,16 @@ def incrementIndex():
 
 
 def getCurrentIndex():
-    f = open(temp_dir+"/index")
-    current = int(f.readline())
-    f.close()
-    if (current >= 24):
-        current = 0
-        getPapeList()
+    current = 0
+    try:
+        f = open(temp_dir+"/index")
+        current = int(f.readline())
+        f.close()
+        if (current >= 24):
+            current = 0
+            getPapeList()
+            raise Exception
+    except (Exception):
         f = open(temp_dir+"/index", 'w')
         f.write("0")
     return current
