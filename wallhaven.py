@@ -64,13 +64,30 @@ def setWallpaper(link: str):
 
 
 def main():
+
+    def savePape():
+        filename = os.path.split(getLink(index-1))
+        dlPape(getLink(index-1), save_dir+filename[1])
+        print("Pape saved to " + save_dir+filename[1])
+
     index = getCurrentIndex()
-    if (len(sys.argv) != 1):
-        if (sys.argv[1] == "s"):
-            filename = os.path.split(getLink(index-1))
-            dlPape(getLink(index-1), save_dir+filename[1])
-            print("Pape saved to " + save_dir+filename[1])
-    else:
+    parser = argparse.ArgumentParser(
+            prog=sys.argv[0],
+            description="Sets x11 session wallpaper with Wallhaven API")
+    parser.add_argument('-s', '--save',
+                        action='store_true',
+                        dest='save'
+                        )
+    parser.add_argument('--update',
+                        action='store_true',
+                        dest='update_database'
+                        )
+    args = parser.parse_args()
+    if (args.save):
+        savePape()
+    if (args.update_database):
+        getPapeList()
+    if (len(sys.argv) == 1):
         path = getLink(index)
         setWallpaper(path)
 
